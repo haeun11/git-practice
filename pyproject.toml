@@ -1,0 +1,12 @@
+[project]
+name = "orderlab"
+version = "0.1.0"
+requires-python = ">=3.14"
+
+[tool.ruff]
+# 이전 Git 실습 파일은 검사 대상에서 제외
+extend-exclude = ["calculator.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
