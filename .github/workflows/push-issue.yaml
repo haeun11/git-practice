@@ -1,0 +1,33 @@
+name: Create Issue on Push
+on:
+  push:
+permissions:
+  issues: write
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      # 1. GitHub CLI 사용
+      - name: Create issue with GitHub CLI
+        run: |
+          gh api \
+            --method POST \
+            "repos/$GITHUB_REPOSITORY/issues" \
+            -f title="Push 이벤트 발생 (gh) - ${GITHUB_SHA::7}" \
+            -f body="$GITHUB_ACTOR 님이 $GITHUB_REF_NAME 브랜치에 push 했습니다. (commit: $GITHUB_SHA)" \
+            --jq '.html_url'
+
+      # 2. curl 사용
+      - name: Create issue with curl
+        run: |
+          curl -L --fail-with-body \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/issues" \
+            -d "{\"title\":\"Push 이벤트 발생 (curl) - ${GITHUB_SHA::7}\",\"body\":\"$GITHUB_ACTOR 님이 $GITHUB_REF_NAME 브랜치에 push 했습니다. (commit: $GITHUB_SHA)\"}"
