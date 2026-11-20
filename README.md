@@ -1,3 +1,5 @@
+
+배포 URL: https://haeun11.github.io/git-practice/
 # Git practice
 
 name : Haeun Kim
@@ -21,3 +23,5 @@ python generate_report.py        # site/index.html 생성
 
 - `.github/workflows/ci.yml` : Push/PR 마다 lint job + OS별(ubuntu, windows) test job, coverage.xml artifact 업로드
 - `.github/workflows/ci-cd.yml` : PR 은 quality 만, main Push 는 quality 통과 후 GitHub Pages 배포
+
+배포 URL: https://haeun11.github.io/git-practice/
